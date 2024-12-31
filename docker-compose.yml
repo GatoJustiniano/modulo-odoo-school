@@ -1,0 +1,36 @@
+services:
+  odoo:
+    build: .
+    container_name: odoo_web
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=odoo
+      - DB=odoo
+    volumes:
+      - ./data:/opt/odoo/data
+      - odoo_data-lts:/opt/odoo/data
+      - .\addons:/opt/odoo/addons
+      - .\extra-addons:/opt/odoo/extra-addons
+      - .\odoo\addons:/opt/odoo/odoo/addons
+      - .\odoo.conf:/opt/odoo/odoo.conf
+
+    ports:
+      - "8069:8069"
+    depends_on:
+      - db
+  db:
+    image: postgres:13
+    container_name: postgres_db
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    restart: always
+   
+volumes:
+  db-data:
+  odoo_data-lts: 
