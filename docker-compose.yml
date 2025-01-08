@@ -10,16 +10,15 @@ services:
     volumes:
       - ./data:/opt/odoo/data
       - odoo_data-lts:/opt/odoo/data
-      - ./addons:/opt/odoo/addons
-      - ./extra-addons:/opt/odoo/extra-addons
-      - ./odoo/addons:/opt/odoo/odoo/addons
-      - ./odoo.conf:/opt/odoo/odoo.conf
+      - .\addons:/opt/odoo/addons
+      - .\extra-addons:/opt/odoo/extra-addons
+      - .\odoo\addons:/opt/odoo/odoo/addons
+      - .\odoo.conf:/opt/odoo/odoo.conf
+
     ports:
       - "8069:8069"
     depends_on:
       - db
-    restart: always
-
   db:
     image: postgres:13
     container_name: postgres_db
@@ -31,7 +30,7 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
     restart: always
-
+   
 volumes:
   db-data:
-  odoo_data-lts:
+  odoo_data-lts: 
